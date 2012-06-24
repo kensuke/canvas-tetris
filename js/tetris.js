@@ -19,9 +19,38 @@ var shapes = [
 var colors = [
     'cyan', 'orange', 'blue', 'yellow', 'red', 'green', 'purple'
 ];
+var ids = null;
+
+function newIds() {
+    // new
+    ids = new Array(shapes.length);
+    for (var i = 0; i < shapes.length; ++i) {
+        ids[i] = i;
+    }
+
+    // swap
+    for (var i = 0; i < shapes.length*shapes.length; ++i) {
+        var l = Math.floor( Math.random() * shapes.length );
+        var r = Math.floor( Math.random() * shapes.length );
+        if (l == r) {
+            continue;
+        }
+        var t = ids[l];
+        ids[l] = ids[r];
+        ids[r] = t;
+    }
+}
+
+function getId() {
+    if (ids == null || ids.length == 0) {
+        newIds();
+    }
+    return ids.pop();
+}
 
 function newShape() {
-    var id = Math.floor( Math.random() * shapes.length );
+//    var id = Math.floor( Math.random() * shapes.length );
+    var id = getId();
     var shape = shapes[ id ];
 
     current = [];
